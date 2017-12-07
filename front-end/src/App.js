@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       students: []
     }
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
@@ -38,8 +39,11 @@ class App extends Component {
       data: {
         studentName: studentName
       }
-    }).then((data)=>{
-      console.log(data);
+    }).then((studentData)=>{
+      console.log(studentData);
+      this.setState({
+        students: studentData.data
+      })
     })
   }
 
@@ -47,6 +51,7 @@ class App extends Component {
     var studentsArray = this.state.students.map((student,i)=>{
       return (<li key={i}>{student.name}</li>)
     })
+    console.log(studentsArray);
     return (
       <div className="App">
         <form onSubmit={this.handleSubmit}>
