@@ -16,7 +16,19 @@ class ToDo extends Component{
 		event.preventDefault();
 		const task = document.getElementById('new-task').value;
 		const taskDate = document.getElementById('new-task-date').value;
-		
+		axios({
+			method: "POST",
+			url: "http://localhost:3000/addTask",
+			data:{
+				taskName: task,
+				taskDate: taskDate
+			}
+		}).then((taskData)=>{
+			console.log(taskData.data);
+			this.setState({
+				taskList: taskData.data
+			})
+		})
 
 	}
 
@@ -24,9 +36,9 @@ class ToDo extends Component{
 		var taskArray = this.state.taskList.map((task,i)=>{
 			return(
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>{task.taskName} - {task.taskDate}</td>
+					<td><button className="btn red">Delete</button></td>
+					<td><button className="btn blue">Edit</button></td>
 				</tr>
 			)
 		});
